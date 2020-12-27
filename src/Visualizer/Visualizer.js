@@ -1,13 +1,16 @@
 import React from 'react';
 import './Visualizer.css';
 import BubbleSort from '../Algorithms/BubbleSort.js';
+import QuickSort from '../Algorithms/QuickSort.js';
+import Slider from 'react-input-slider';
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             array: [],
-            arraySize: 10
+            arraySize: 5,
+            sortSpeed: 1
         };
 
         this.handleInput = this.handleInput.bind(this);
@@ -24,6 +27,8 @@ export default class SortingVisualizer extends React.Component {
             array.push(randomInt(10, 510));
         }
         this.setState({ array: array });
+
+        return array;
     };
 
     bubbleSort() {
@@ -44,15 +49,14 @@ export default class SortingVisualizer extends React.Component {
                         bar2Style.backgroundColor = 'darkseagreen';   
                         this.swap(array, bar1Index, bar2Index);
                     }
-                }, i * 250);
+                }, i * (251 - this.state.sortSpeed));
             } else {
                 setTimeout(() => {
                     bar1Style.backgroundColor = 'pink';
                     bar2Style.backgroundColor = 'pink';    
-                }, i * 250);
+                }, i * (251 - this.state.sortSpeed));
             }
         }   
-
     };
 
     swap = (array, i, j) => {
@@ -73,7 +77,31 @@ export default class SortingVisualizer extends React.Component {
     };
 
     quickSort() {
-
+        const animations = QuickSort(this.state.array);
+        const { array } = this.state;
+        for(let i = 0; i < animations.length; i++) {
+            const bars = document.getElementsByClassName('bar');
+            const isColorChange = i % 2 === 0;
+            const [bar1Index, bar2Index] = animations[i];
+            const bar1Style = bars[bar1Index].style;
+            const bar2Style = bars[bar2Index].style;
+            if(isColorChange) {
+                setTimeout(() => {
+                    bar1Style.backgroundColor = 'darksalmon';
+                    bar2Style.backgroundColor = 'darksalmon';   
+                    if(array[bar1Index] > array[bar2Index]) {
+                        bar1Style.backgroundColor = 'darkseagreen';
+                        bar2Style.backgroundColor = 'darkseagreen';   
+                        this.swap(array, bar1Index, bar2Index);
+                    }
+                }, i * (251 - this.state.sortSpeed));
+            } else {
+                setTimeout(() => {
+                    bar1Style.backgroundColor = 'pink';
+                    bar2Style.backgroundColor = 'pink';    
+                }, i * (251 - this.state.sortSpeed));
+            }
+        }    
     };
 
     heapSort() {
@@ -81,38 +109,45 @@ export default class SortingVisualizer extends React.Component {
     };
 
     handleInput(event) {
-        if(event.target.value < 311 && event.target.value > 9) {
+        if(event.target.value < 100 && event.target.value > 1) {
             this.setState({
                 arraySize: event.target.value
             })
-            this.randomizeArray();
         }
     };
 
     drawBars(array) {
-        
+        return (
+            <div>
+                {array.map((value, index) => (
+                        <div className="bar" key={index} style={{height: `${value}px`, width: window.innerWidth / this.state.arraySize / 2}}></div>
+                ))}
+            </div>
+        );
     }
 
     render() {
         const { array } = this.state;
+        const bars = this.drawBars(array);
 
         return (
-            <div className="container" style={{backgroundColor: "lightyellow", width: window.innerWidth, height: window.innerHeight, 
-            textAlign: "center"}}>
-                {array.map((value, index) => (
-                    <div className="bar" key={index} style={{height: `${value}px`, width: window.innerWidth / this.state.arraySize / 2}}>
-                    </div>
-                ))}
-
-                <div style={{textAlign: "center"}}>
-                    <input type="text" name="arraySize" onChange={this.handleInput} />  
-                    <br />
-                    <br />
+            <div className="container" style={{backgroundColor: "lightyellow", width: window.innerWidth, height: window.innerHeight, textAlign: "center"}}>
+                <span style={{marginRight: 25}}>Control Size</span>
+                <Slider x={this.state.arraySize} xmin={5} xmax={100} xstep={5} onChange={({x}) => this.setState({ arraySize: x })} onDragEnd={() => this.randomizeArray()}/>
+                <input type="text" value={this.state.arraySize} style= {{ width: 22, marginLeft: 15}} disabled={true}/>
+                <br/>
+                <span style={{marginRight: 25}}>Speed (ms)</span>
+                <Slider x={this.state.sortSpeed} xmin={1} xmax={250} xstep={1} onChange={({x}) => this.setState({ sortSpeed: x })}/>
+                <input type="text" value={this.state.sortSpeed} style= {{ width: 22, marginLeft: 15}} disabled={true}/>
+                <br /><br/><br/>
+                {bars}
+                
+                <br />
                     <button onClick={() => this.randomizeArray()}>New Array</button>
+                <div style={{textAlign: "center"}}>
+                    <br/>                    
                     <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
-                    <button onClick={() => this.mergeSort()}>Merge Sort</button>
-                    <button onClick={() => this.quickSort}>Quick Sort</button>
-                    <button onClick={() => this.heapSort()}>Heap Sort</button>
+                    <button onClick={() => this.quickSort()}>Quick Sort</button>
                 </div>
             </div>
         )
