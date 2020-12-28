@@ -1,22 +1,70 @@
-export const mergeSort = (array) => {
-    if(array.length === 1) {
+function MergeSort(array) {
+    const animations = [];
+    if(array.length <= 1) {
         return array;
     }
+    const tempArray = array.slice();
+    divide(array, 0, array.length - 1, tempArray, animations);
+    return animations;
+};
 
-    const middle = Math.floor(array.length / 2);
-    const firstHalf = mergeSort(array.slice(0, middle));
-    const secondHalf = mergeSort(array.slice(middle));
-    const sortedArray = [];
-    let i = 0;
-    j = 0;
-    while(i < firstHalf.length && j < secondHalf.length) {
-        if(firstHalf[i] < secondHalf[j]) {
-            sortedArray.push(firstHalf[i++]);
+function divide(array, startIndex, endIndex, tempArray, animations) {
+    if(startIndex === endIndex) {
+        return;
+    }
+    const midIndex = Math.floor((startIndex + endIndex) / 2);
+    divide(tempArray, startIndex, midIndex, array, animations);
+    divide(tempArray, midIndex + 1, endIndex, array, animations);
+    conquer(array, startIndex, midIndex, endIndex, tempArray, animations);
+};
+
+function conquer(array, startIndex, midIndex, endIndex, tempArray, animations) {
+    let k = startIndex;
+    let i = startIndex;
+    let j = midIndex + 1;
+    while(i <= midIndex && j <= endIndex) {
+        // These are the values that we're comparing; we push them once
+        // to change their color.
+        animations.push([i, j]);
+        // These are the values that we're comparing; we push them a second
+        // time to revert their color.
+        animations.push([i, j]);
+        if (tempArray[i] <= tempArray[j]) {
+            // We overwrite the value at index k in the original array with the
+            // value at index i in the auxiliary array.
+            animations.push([k, tempArray[i]]);
+            array[k++] = tempArray[i++];
         } else {
-            sortedArray.push(secondHalf[j++]);
+            // We overwrite the value at index k in the original array with the
+            // value at index j in the auxiliary array.
+            animations.push([k, tempArray[j]]);
+            array[k++] = tempArray[j++];
         }
     }
-    while (i < firstHalf.length) sortedArray.push(firstHalf[i++]);
-    while (j < secondHalf.length) sortedArray.push(secondHalf[j++]);
-    return sortedArray;
+    while (i <= midIndex) {
+        // These are the values that we're comparing; we push them once
+        // to change their color.
+        animations.push([i, i]);
+        // These are the values that we're comparing; we push them a second
+        // time to revert their color.
+        animations.push([i, i]);
+        // We overwrite the value at index k in the original array with the
+        // value at index i in the auxiliary array.
+        animations.push([k, tempArray[i]]);
+        array[k++] = tempArray[i++];
+    }
+    while (j <= endIndex) {
+        // These are the values that we're comparing; we push them once
+        // to change their color.
+        animations.push([j, j]);
+        // These are the values that we're comparing; we push them a second
+        // time to revert their color.
+        animations.push([j, j]);
+        // We overwrite the value at index k in the original array with the
+        // value at index j in the auxiliary array.
+        animations.push([k, tempArray[j]]);
+        array[k++] = tempArray[j++];
+    }
 };
+
+export default MergeSort;
