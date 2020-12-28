@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f0a6f049cdc10077fbd3524a4a2ec83c",
+    "revision": "79266d1b7c33879fd1204f6543716a86",
     "url": "/Sorting-Algorithm-Visualizer/index.html"
   },
   {
-    "revision": "2a3e3b8c91a39029ad21",
+    "revision": "8cbde0a06672e8cfa1a7",
     "url": "/Sorting-Algorithm-Visualizer/static/css/main.6fbc1a0f.chunk.css"
   },
   {
-    "revision": "c146aab27d7edaff4c59",
-    "url": "/Sorting-Algorithm-Visualizer/static/js/2.9be13ad4.chunk.js"
+    "revision": "726464647480d6e70334",
+    "url": "/Sorting-Algorithm-Visualizer/static/js/2.497f413b.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/Sorting-Algorithm-Visualizer/static/js/2.9be13ad4.chunk.js.LICENSE.txt"
+    "url": "/Sorting-Algorithm-Visualizer/static/js/2.497f413b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2a3e3b8c91a39029ad21",
-    "url": "/Sorting-Algorithm-Visualizer/static/js/main.347d9bbc.chunk.js"
+    "revision": "8cbde0a06672e8cfa1a7",
+    "url": "/Sorting-Algorithm-Visualizer/static/js/main.ea97a212.chunk.js"
   },
   {
     "revision": "7f7d4b66a2bd93d478da",
