@@ -17,3 +17,63 @@
     border: solid blue;
 }
 
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 3px solid #4CAF50;
+    font-size: 15px;
+    font-weight: bold;
+    opacity: 0.9;
+    border-radius: 13px;
+    transition-duration: 0.38s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
+    outline: none;
+}
+
+.button:hover {
+    background-color: white; /* Green */
+    color: rgb(65, 65, 65);
+    border: 3px solid #4CAF50;
+}
+
+.button:active {
+    background-color: #4CAF50;
+    color: white;
+    opacity: 0.9;
+    transform: translateY(4px);
+}
+
+.button2 {
+    background-color: #027be6; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid #027be6;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 13px;
+    transition-duration: 0.38s;
+    box-shadow: 0 8px 16px 0 rgba(151, 134, 134, 0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
+    outline: none;
+}
+
+.button2:hover {
+    background-color: white; /* Green */
+    color: rgb(65, 65, 65);
+    border: 1px solid #027be6;
+}
+
+.button2:active {
+    background-color: #027be6;
+    color: white;
+
+    transform: translateY(4px);
+}
